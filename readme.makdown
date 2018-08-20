@@ -1,0 +1,109 @@
+# 搭建webpack脚手架
+
+```
+mkdir demo && cd demo
+// 初始化npm
+npm init -y
+// 下载webpack
+cnpm install webpack --save
+// 创建原文件目录
+mkdir src && cd src
+// 创建入口文件
+touch app.js
+// 创建webpack 配置文件
+cd ../
+touch webpack.config.js
+```
+
+编辑webpack.config.js 中的内容
+
+```
+var path=require('path')
+
+module.exports={
+    entry:"./src/app.js",
+    output:{
+        path:path.relative(__dirname,'./dists'),
+        filename:"bundles.js"
+    }
+}
+```
+
+package.json 文件中添加如下内容
+```json
+{
+    "scripts": {
+        "build":"./node_modules/.bin/webpack --config webpack.config.js"
+    }
+}
+```
+
+下载webpack-cli (第四版之后才将的webpack-cli从webpack中分离出来)
+```
+cnpm install webpacl-cli
+```
+
+执行下面代码已经能执行成功并且生成对应的打包文件
+```
+npm run build
+```
+
+### 加入babel
+
+下载babel 中需要的引用文件
+```
+cnpm install --save babel-plugin-transform-runtime babel-runtime babel-loader babel-core babel-preset-env
+```
+
+
+新建babel 配置文件
+```
+touch .babelrc
+```
+
+.babelrc 添加如下配置
+```
+{
+    "presets":[
+        "env"
+    ],
+    "plugins":[
+        "transform-runtime"
+    ]
+}
+```
+
+同时也修改对应webpack.config.js 添加对应的 module 内容
+```
+var path=require('path');
+
+module.exports={
+    entry:"./src/app.js",
+    output:{
+        path:path.resolve(__dirname,"./dists"),
+        filename:"bundles.js"
+    },
+    module:{
+        rules:[
+            {
+                test:/\.js$/,
+                loader:"babel-loader"
+            }
+        ]
+    }
+}
+```
+
+这个时候再次运用npm run build 已经将app.js 里面的ES6 以上的内容全部解析编译成ES5的代码了。
+
+### SCSS
+
+下载对应依赖的文件
+```
+cnpm install --save style-loader css-loader sass-loader
+```
+
+添加对应的内容到配置文件中
+
+
+
