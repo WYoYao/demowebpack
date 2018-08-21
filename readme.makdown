@@ -100,10 +100,25 @@ module.exports={
 
 下载对应依赖的文件
 ```
-cnpm install --save style-loader css-loader sass-loader
+cnpm install --save style-loader css-loader sass-loader node-sass
 ```
 
 添加对应的内容到配置文件中
+这个时候文件总的scss 文件已经被转成成为js文件, 加载完成可以自动的附加到dom 中。
+
+### PostCSS
+
+下载对应的依赖
+```
+npm install --save-dev postcss-loader postcss-cssnext
+```
+
+### ESLint
+
+```
+cnpm install --save-dev eslint-loader eslint-friendly-formatter
+```
+
 
 
 
